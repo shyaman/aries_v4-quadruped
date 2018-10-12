@@ -16,7 +16,9 @@ MIN_h1_rear = MAX_h1_rear - h1_moving_angle
 
 MAX_h2 = 65
 
-DELAY = 0.007
+DELAY = 0.01
+
+PWM_UNUSED = 8
 
 
 class RobotLeg:
@@ -89,3 +91,22 @@ def moveLegRear(leg, delay=0):
         for x in range(MAX_h1_rear, MIN_h1_rear, -1):
             leg.move_h1(x)
             time.sleep(DELAY)
+
+
+def keepAlive():
+    unused = navio.pwm.PWM(PWM_UNUSED)
+    unused.initialize()
+    unused.set_period(PERIOD)
+    unused.enable()
+
+    while True:
+        unused.set_duty_cycle(0.001)
+        time.sleep(DELAY)
+
+
+def keepAliveThread():
+    try:
+        KA = multiprocessing.Process(target=keepAlive)
+        KA.start()
+    except:
+        print "Error: unable to start thread"

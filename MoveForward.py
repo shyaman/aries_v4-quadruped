@@ -12,7 +12,7 @@ def movePairOne(frontLeg, rearLeg):
         print "Error: unable to start thread"
 
 
-def MoveStepForward(self, front_left, front_right, rear_right, rear_left):
+def MoveStepForward(front_left, front_right, rear_left, rear_right):
     movePairOne(front_left, rear_right)
     time.sleep(h1_moving_angle * DELAY)
     movePairOne(front_right, rear_left)
