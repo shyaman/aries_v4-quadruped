@@ -11,7 +11,7 @@ SERVO_MAX = 1.500  # ms
 PERIOD = 50
 
 MAX_h1_front = 90
-MAX_h1_rear = 160
+MAX_h1_rear = 135
 h1_moving_angle = 70
 MIN_h1_front = MAX_h1_front - h1_moving_angle
 MIN_h1_rear = MAX_h1_rear - h1_moving_angle
@@ -19,9 +19,9 @@ MIN_h1_rear = MAX_h1_rear - h1_moving_angle
 MIN_h2 = 50
 MAX_h2 = 70
 
-DELAY = 0.005
+DELAY = 0.007
 
-PWM_UNUSED = 8
+PWM_UNUSED = 1
 
 
 class RobotLeg:
@@ -73,7 +73,7 @@ def KeepAlive():
     unused.enable()
 
     while True:
-        unused.set_duty_cycle(0.05)
+        unused.set_duty_cycle(0.001)
         time.sleep(DELAY)
 
 
