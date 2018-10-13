@@ -12,7 +12,7 @@ class MoveLegRear(multiprocessing.Process):
 
     def run(self):
         while not self.exit.is_set():
-            self.leg.move_h2(MAX_h2 / 1.5)
+            self.leg.move_h2(MIN_h2)
 
             for x in range(MIN_h1_rear, MAX_h1_rear):
                 self.leg.move_h1(x)
@@ -23,8 +23,5 @@ class MoveLegRear(multiprocessing.Process):
                 self.leg.move_h1(x)
                 time.sleep(DELAY)
 
-        print "You exited!"
-
     def shutdown(self):
-        print "Shutdown initiated"
         self.exit.set()

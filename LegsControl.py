@@ -1,5 +1,6 @@
-import multiprocessing
 import time
+from multiprocessing import Process
+
 import navio.pwm
 import navio.util
 
@@ -10,14 +11,15 @@ SERVO_MAX = 1.500  # ms
 PERIOD = 50
 
 MAX_h1_front = 90
-MAX_h1_rear = 130
+MAX_h1_rear = 160
 h1_moving_angle = 70
 MIN_h1_front = MAX_h1_front - h1_moving_angle
 MIN_h1_rear = MAX_h1_rear - h1_moving_angle
 
-MAX_h2 = 65
+MIN_h2 = 50
+MAX_h2 = 70
 
-DELAY = 0.01
+DELAY = 0.005
 
 PWM_UNUSED = 8
 
@@ -71,13 +73,14 @@ def KeepAlive():
     unused.enable()
 
     while True:
-        unused.set_duty_cycle(0.001)
+        unused.set_duty_cycle(0.05)
         time.sleep(DELAY)
+
 
 
 def KeepAliveThread():
     try:
-        KA = multiprocessing.Process(target=KeepAlive)
+        KA = Process(target=KeepAlive)
         KA.start()
     except:
         print "Error: unable to start thread"
