@@ -1,18 +1,22 @@
+from MoveLegRear import MoveLegRear
 from LegsControl import *
-import multiprocessing
-
-
-def movePairOne(frontLeg, rearLeg):
-    try:
-        fl = multiprocessing.Process(target=moveLegFront, args=(frontLeg,))
-        rl = multiprocessing.Process(target=moveLegRear, args=(rearLeg, MAX_h1_front / 3 * DELAY))
-        fl.start()
-        rl.start()
-    except:
-        print "Error: unable to start thread"
+from MoveLegFront import MoveLegFront
 
 
 def MoveStepForward(front_left, front_right, rear_left, rear_right):
-    movePairOne(front_left, rear_right)
+    fL = MoveLegFront(front_left)
+    rR = MoveLegRear(rear_right)
+    fL.start()
+    rR.start()
     time.sleep(h1_moving_angle * DELAY)
-    movePairOne(front_right, rear_left)
+    fR = MoveLegFront(front_right)
+    rL = MoveLegRear(rear_left)
+    fR.start()
+    rL.start()
+
+    time.sleep(5)
+    fL.shutdown()
+    rR.shutdown()
+    fR.shutdown()
+    rL.shutdown()
+

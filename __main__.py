@@ -8,18 +8,18 @@ front_right = RobotLeg(11, 12, m2_revert=2, servoMinOffset=-0.05)
 
 if __name__ == '__main__':
 
-    rear_left.move_h1(MIN_h1_rear)
-    rear_right.move_h1(MIN_h1_rear)
-    front_left.move_h1(MAX_h1_front)
-    front_right.move_h1(MAX_h1_front)
-
-    for x in range(-90, MAX_h2):
-        rear_left.move_h2(x)
-        rear_right.move_h2(x)
-        front_left.move_h2(x)
-        front_right.move_h2(x)
-        time.sleep(3 * DELAY)
-
+    KeepAlive()
+    # rear_left.move_h1(MIN_h1_rear)
+    # rear_right.move_h1(MIN_h1_rear)
+    # front_left.move_h1(MAX_h1_front)
+    # front_right.move_h1(MAX_h1_front)
+    #
+    # for x in range(-90, MAX_h2):
+    #     rear_left.move_h2(x)
+    #     rear_right.move_h2(x)
+    #     front_left.move_h2(x)
+    #     front_right.move_h2(x)
+    #     time.sleep(3 * DELAY)
 
     while True:
         # desiredPosition1 = input("value1? ")
@@ -38,4 +38,4 @@ if __name__ == '__main__':
         #
         # front_left.move_h2(desiredPosition2)
         # front_right.move_h2(desiredPosition2)
-        pass
+        # pass

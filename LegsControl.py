@@ -1,3 +1,4 @@
+import multiprocessing
 import time
 import navio.pwm
 import navio.util
@@ -63,37 +64,7 @@ class RobotLeg:
                    + self.servoMinOffset
 
 
-def moveLegFront(leg, delay=0):
-    # time.sleep(delay)
-    while True:
-
-        leg.move_h2(MAX_h2 / 1.5)
-        for x in range(MAX_h1_front, MIN_h1_front, -1):
-            leg.move_h1(x)
-            time.sleep(DELAY)
-
-        leg.move_h2(MAX_h2)
-        for x in range(MIN_h1_front, MAX_h1_front):
-            leg.move_h1(x)
-            time.sleep(DELAY)
-
-
-def moveLegRear(leg, delay=0):
-    # time.sleep(delay)
-    while True:
-
-        leg.move_h2(MAX_h2 / 1.5)
-        for x in range(MIN_h1_rear, MAX_h1_rear):
-            leg.move_h1(x)
-            time.sleep(DELAY)
-
-        leg.move_h2(MAX_h2)
-        for x in range(MAX_h1_rear, MIN_h1_rear, -1):
-            leg.move_h1(x)
-            time.sleep(DELAY)
-
-
-def keepAlive():
+def KeepAlive():
     unused = navio.pwm.PWM(PWM_UNUSED)
     unused.initialize()
     unused.set_period(PERIOD)
@@ -104,9 +75,9 @@ def keepAlive():
         time.sleep(DELAY)
 
 
-def keepAliveThread():
+def KeepAliveThread():
     try:
-        KA = multiprocessing.Process(target=keepAlive)
+        KA = multiprocessing.Process(target=KeepAlive)
         KA.start()
     except:
         print "Error: unable to start thread"
