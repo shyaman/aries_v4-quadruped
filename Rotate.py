@@ -4,7 +4,7 @@ from LegsControl import *
 def RotateRight(front_left, front_right, rear_left, rear_right):
     front_left_r = Process(target=frontLeg,args=(front_left,))
     rear_right_r = Process(target=rearLeg,args=(rear_right,))
-    upLegs = Process(target=legsUP,args=(rear_left,front_right,))
+    upLegs = Process(target=legsUP,args=(front_right,rear_left,))
     front_left_r.start()
     rear_right_r.start()
     upLegs.start()
@@ -30,7 +30,7 @@ def frontLeg(leg):
         leg.move_h1(x)
         time.sleep(DELAY)
 
-    leg.move_h2(MAX_h2)
+    leg.move_h2(MAX_h2_front)
     for x in range(MIN_h1_front, MAX_h1_front):
         leg.move_h1(x)
         time.sleep(DELAY)
@@ -42,15 +42,15 @@ def rearLeg(leg):
         leg.move_h1(x)
         time.sleep(DELAY)
 
-    leg.move_h2(MAX_h2)
+    leg.move_h2(MAX_h2_rear)
     for x in range(MIN_h1_rear-h1_moving_angle, MIN_h1_rear):
         leg.move_h1(x)
         time.sleep(DELAY)
 
-def legsUP(leg1, leg2):
-    time.sleep(h1_moving_angle * DELAY)
-    leg1.move_h2(MIN_h2)
-    leg2.move_h2(MIN_h2)
-    time.sleep(h1_moving_angle * DELAY)
-    leg1.move_h2(MAX_h2)
-    leg2.move_h2(MAX_h2)
+def legsUP(legFront, legRear):
+    time.sleep((h1_moving_angle+10) * DELAY)
+    legFront.move_h2(MIN_h2)
+    legRear.move_h2(MIN_h2)
+    time.sleep((h1_moving_angle-10) * DELAY)
+    legFront.move_h2(MAX_h2_front)
+    legRear.move_h2(MAX_h2_rear)

@@ -13,6 +13,7 @@ class MoveForward:
         self.move_rear_right = MoveLegRear(rear_right)
         self.move_front_right = MoveLegFront(front_right)
         self.move_rear_left = MoveLegRear(rear_left)
+        self.isMoving = False
 
     def move(self):
         self.move_front_left.start()
@@ -20,6 +21,7 @@ class MoveForward:
         time.sleep(h1_moving_angle * DELAY)
         self.move_front_right.start()
         self.move_rear_left.start()
+        self.isMoving = True
 
     def stop(self):
         self.move_front_left.shutdown()
@@ -30,4 +32,5 @@ class MoveForward:
         self.move_rear_right.join()
         self.move_front_right.join()
         self.move_rear_left.join()
+        self.isMoving = False
         self = self.__init__(self.front_left, self.front_right, self.rear_left, self.rear_right)

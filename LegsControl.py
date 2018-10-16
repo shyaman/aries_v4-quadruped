@@ -10,18 +10,19 @@ SERVO_MIN = 0.700  # ms
 SERVO_MAX = 1.500  # ms
 PERIOD = 50
 
-MAX_h1_front = 90
-MAX_h1_rear = 135
+MAX_h1_front = 80
+MAX_h1_rear = 130
 h1_moving_angle = 70
 MIN_h1_front = MAX_h1_front - h1_moving_angle
 MIN_h1_rear = MAX_h1_rear - h1_moving_angle
 
 MIN_h2 = 50
-MAX_h2 = 70
+MAX_h2_front = 70
+MAX_h2_rear = 70
 
-DELAY = 0.007
+DELAY = 0.01
 
-PWM_UNUSED = 1
+PWM_UNUSED = 7
 
 
 class RobotLeg:
@@ -66,21 +67,20 @@ class RobotLeg:
                    + self.servoMinOffset
 
 
-def KeepAlive():
-    unused = navio.pwm.PWM(PWM_UNUSED)
-    unused.initialize()
-    unused.set_period(PERIOD)
-    unused.enable()
-
+def KeepAlive(pin):
     while True:
-        unused.set_duty_cycle(0.001)
+        pin.set_duty_cycle(0.001)
         time.sleep(DELAY)
 
 
 
 def KeepAliveThread():
+    unused = navio.pwm.PWM(PWM_UNUSED)
+    unused.initialize()
+    unused.set_period(PERIOD)
+    unused.enable()
     try:
-        KA = Process(target=KeepAlive)
+        KA = Process(target=KeepAlive,args=(unused,))
         KA.start()
     except:
         print "Error: unable to start thread"

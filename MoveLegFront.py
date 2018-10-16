@@ -18,7 +18,7 @@ class MoveLegFront(multiprocessing.Process):
                 self.leg.move_h1(x)
                 time.sleep(DELAY)
 
-            self.leg.move_h2(MAX_h2)
+            self.leg.move_h2(MAX_h2_front)
             for x in range(MIN_h1_front, MAX_h1_front):
                 self.leg.move_h1(x)
                 time.sleep(DELAY)
